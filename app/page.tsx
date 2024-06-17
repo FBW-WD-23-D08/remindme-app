@@ -1,5 +1,5 @@
 import React from 'react';
-import TodoForm from './components/TodoForm';
+import RemeForm from './components/RemeForm';
 
 export default function Home() {
   return (
@@ -7,7 +7,7 @@ export default function Home() {
   <h1 className="m-2 text-center text-3xl font-bold ">
         Reminder
       </h1>
-      <TodoForm />
+      <RemeForm />
     </div>
   );
 }
