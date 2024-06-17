@@ -3,3 +3,8 @@
 @tailwind utilities;
 
 
+.reminder-item.completed {
+    color: green;
+    
+  }
+  
