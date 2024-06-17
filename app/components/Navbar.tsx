@@ -8,7 +8,11 @@ const Navbar = () => {
   
     const toggleDarkMode = () => {
       darkMode = !darkMode;
-      document.documentElement.classList.toggle('dark', darkMode);
+      if (darkMode) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
     };
     
   
@@ -36,7 +40,7 @@ const Navbar = () => {
             </ul>
           </div>
           <div className="flex items-center space-x-4">
-          <button
+          <button onClick={toggleDarkMode}
   className="inline-block cursor-pointer rounded-md bg-gray-800 px-2 py-2 text-center text-sm font-semibold uppercase text-white transition duration-200 ease-in-out hover:bg-gray-900 m-2">
   moon
 </button>
