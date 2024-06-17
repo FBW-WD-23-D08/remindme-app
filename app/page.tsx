@@ -1,11 +1,13 @@
 import React from 'react';
+import TodoForm from './components/TodoForm';
 
 export default function Home() {
   return (
-    <>
-    
-    <h1>Hello nextjs</h1>
-    <p>hell jear</p>
-    </>
+    <div className='flex items-center justify-center flex-col gap-4'>
+  <h1 className="m-2 text-center text-3xl font-bold ">
+        Reminder
+      </h1>
+      <TodoForm />
+    </div>
   );
 }
