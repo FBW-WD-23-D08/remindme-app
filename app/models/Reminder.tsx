@@ -1,15 +1,15 @@
+import mongoose from 'mongoose';
 
-
-import mongoose, { Document, Schema } from 'mongoose';
-
-export interface IReminder extends Document {
-  text: string;
-  completed: boolean;
-}
-
-const ReminderSchema: Schema = new Schema({
-  text: { type: String, required: true },
-  completed: { type: Boolean, default: false },
+const reminderSchema = new mongoose.Schema({
+  text: {
+    type: String,
+    required: true,
+  },
+  completed: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-export default mongoose.models.Reminder || mongoose.model<IReminder>('Reminder', ReminderSchema);
+const Reminder = mongoose.models.Reminder || mongoose.model('Reminder', reminderSchema);
+export default Reminder;
