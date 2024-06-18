@@ -4,30 +4,33 @@ import '@/app/globals.css';
 import RemeListItem from './RemeListItem';
 
 const RemeForm = () => {
-  const [reminders, setReminders] = useState<{ text: string; completed: boolean; }[]>([]);
+  const [reminders, setReminders] = useState<{ id: number; text: string; completed: boolean; }[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [loading, setLoading] = useState(false);
+  const [nextId, setNextId] = useState(1); // Zustand für die nächste verfügbare ID
 
   const handleAddReminder = () => {
     if (inputValue.trim() !== '') {
       setLoading(true);
       setTimeout(() => {
-        const updatedReminders = [...reminders, { text: inputValue, completed: false }];
-        setReminders(updatedReminders);
+        const newReminder = { id: nextId, text: inputValue, completed: false };
+        setReminders([...reminders, newReminder]);
+        setNextId(nextId + 1); // Erhöhe die nächste verfügbare ID
         setInputValue('');
         setLoading(false);
       }, 500); // Simulating a loading delay
     }
   };
 
-  const handleCheckReminder = (index: number) => {
-    const updatedReminders = [...reminders];
-    updatedReminders[index].completed = true;
+  const handleCheckReminder = (id: number) => {
+    const updatedReminders = reminders.map(reminder =>
+      reminder.id === id ? { ...reminder, completed: true } : reminder
+    );
     setReminders(updatedReminders);
   };
   
-  const handleDeleteReminder = (index: number) => {
-    const updatedReminders = reminders.filter((_, i) => i !== index);
+  const handleDeleteReminder = (id: number) => {
+    const updatedReminders = reminders.filter(reminder => reminder.id !== id);
     setReminders(updatedReminders);
   };
 
@@ -56,12 +59,12 @@ const RemeForm = () => {
           {reminders.length === 0 ? (
             <p className='text-center'>No reminders yet</p>
           ) : (
-            reminders.map((reminder, index) => (
+            reminders.map(reminder => (
               <RemeListItem
-                key={index}
+                key={reminder.id}
                 reminder={reminder}
-                onCheck={() => handleCheckReminder(index)}
-                onDelete={() => handleDeleteReminder(index)}
+                onCheck={() => handleCheckReminder(reminder.id)}
+                onDelete={() => handleDeleteReminder(reminder.id)}
               />
             ))
           )}
